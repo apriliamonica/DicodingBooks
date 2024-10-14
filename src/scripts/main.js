@@ -129,7 +129,24 @@ function main() {
   //   xhr.send(JSON.stringify(book));
   // };
 
-  // const removeBook = (bookId) => {
+  const removeBook = (bookId) => {
+    fetch("${baseUrl}/delate/${bookId}", {
+      method: "DELETE",
+      headers: {
+        "X-Auth-Token": "12345",
+      },
+    })
+      .then((response) => {
+        return response.Json();
+      })
+      .then((responseJson) => {
+        showResponseMessage(responseJson.message);
+        getBook();
+      })
+      .catch((error) => {
+        showResponseMessage(error);
+      });
+  };
   //   // tuliskan kode di sini!
 
   //   // Membuat instance dari XMLHttpRequest
