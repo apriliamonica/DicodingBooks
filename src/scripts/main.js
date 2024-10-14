@@ -39,26 +39,24 @@ function main() {
   // // Mengirimkan request
   // xhr.send();
   // };
-  const insertBook = (book) => {
-    fetch("${baseUrl}/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Auth-Token": "12345",
-      },
-      body: JSON.stringify(book),
-    })
-      .then((response) => {
-        response.json();
-        return response.json();
-      })
-      .then((responseJson) => {
-        showResponseMessage(responseJson.message);
-        getBook();
-      })
-      .catch((error) => {
-        showResponseMessage(error);
-      });
+  const insertBook = async (book) => {
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": "12345",
+        },
+        body: JSON.stringify(book),
+      };
+
+      const response = await fetch(`${baseUrl}/add`, options);
+      const responseJson = await response.json();
+      showResponseMessage(responseJson.message);
+      getBook();
+    } catch (error) {
+      showResponseMessage(error);
+    }
   };
   // tuliskan kode di sini!
   // Membuat instance dari XMLHttpRequest
