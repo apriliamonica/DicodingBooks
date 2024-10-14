@@ -84,25 +84,23 @@ function main() {
   // xhr.send(JSON.stringify(book));
   // };
 
-  const updateBook = (book) => {
-    fetch("${baseUrl}/edit/${book.id}", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Auth-Token": "12345",
-      },
-      body: JSON.stringify(book),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((responseJson) => {
-        showResponseMessage(responseJson.message);
-        getBook();
-      })
-      .catch((error) => {
-        showResponseMessage(error);
-      });
+  const updateBook = async (book) => {
+    try {
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": "12345",
+        },
+        body: JSON.stringify(book),
+      };
+      const response = await fetch(`${baseUrl}/edit/${book.id}`, options);
+      const responseJson = await response.json();
+      showResponseMessage(responseJson.message);
+      getBook();
+    } catch (error) {
+      showResponseMessage(error);
+    }
   };
   // tuliskan kode di sini!
 
